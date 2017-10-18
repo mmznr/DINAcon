@@ -1,0 +1,43 @@
+/*css Datei für Alterpyramide*/
+
+* { font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+    margin: 0;
+}
+
+select{
+    background: white;
+    margin: 2pt;
+    padding: 1pt;
+}
+
+#map {
+  width: 570px;
+  height: 600px;
+  margin-top: 10px;
+}
+
+.gemeinde {
+  visibility: none;
+  stroke: dimgrey;
+  cursor: pointer;
+  fill-opacity: 0.9;
+}
+
+.gemSelect {
+  visibility: hidden;
+  stroke: #ea4d51;
+  stroke-width: 3;
+}
+
+
+path.See {
+   fill: grey;
+   pointer-events: none;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
