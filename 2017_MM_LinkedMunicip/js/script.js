@@ -136,7 +136,7 @@
 		function addLmaps() {
 		    latOrg = 46.9;
 		    lngOrg = 7.7;
-		    zoomOrg = 9;
+		    zoomOrg = 8;
 		    map = L.map('map').setView([latOrg, lngOrg], zoomOrg);
 
 		    //OpenStreetMap_BlackAndWhite
