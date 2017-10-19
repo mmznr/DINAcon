@@ -24,7 +24,21 @@
       zoomLev,
       colorScale;
 
-
+    var ch_DE = {
+        "decimal": ".",
+        "thousands": "'",
+        "grouping": [3],
+        "currency": ["CHF", " "],
+        "dateTime": "%a %b %e %X %Y",
+        "date": "%d.%m.%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
+        "shortDays": ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+        "months": ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+        "shortMonths": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    };
+    var chFormat = d3.formatLocale(ch_DE);
 
 
 		var query = `PREFIX schema: <http://schema.org/>
@@ -179,10 +193,18 @@
       			return colorScale(d.properties.population);
       		})
       		.on('mouseover', function(d) {
-      			//Do whatever you want with your Map-Data
+      			//console.log(d.properties.name);
+      			var bBox = d3.select(this).node().getBBox();
+      			//console.log(bBox);
+      			svgMap.append('text')
+      				.attr('class', 'mouse')
+      				.attr('x', bBox.x+bBox.width/2)
+      				.attr('y', bBox.y+bBox.height/2)
+      				.text(d.properties.name+': '+chFormat.format(',')(d.properties.population));
       		})
       		.on('mouseout', function() {
       			//undo what ever you wanted to do with your Map-Data on Mouse-Out
+      			d3.selectAll('.mouse').remove();
       		})
       		.on('click', function() {
       			//or maybe some click-action?

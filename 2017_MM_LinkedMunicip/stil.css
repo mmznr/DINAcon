@@ -41,3 +41,6 @@ path.See {
   font-size: 14px;
 }
 
+.mouse {
+  pointer-events: none;
+}
