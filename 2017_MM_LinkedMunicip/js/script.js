@@ -135,7 +135,7 @@
     //reset zoom function
     function resetZoom() {
         ebene = 'gem';
-        map.setView([latOrg, lngOrg], 10);
+        map.setView([latOrg, lngOrg], zoomOrg);
         d3.selectAll('.image').remove();
         //d3.selectAll('.gemeinde').style('fill-opacity', 0.3);
     }
@@ -150,7 +150,7 @@
 		function addLmaps() {
 		    latOrg = 46.9;
 		    lngOrg = 7.7;
-		    zoomOrg = 8;
+		    zoomOrg = 9;
 		    map = L.map('map').setView([latOrg, lngOrg], zoomOrg);
 
 		    //OpenStreetMap_BlackAndWhite
@@ -177,38 +177,34 @@
       var transform = d3.geoTransform({point: projectPoint});
       var path = d3.geoPath().projection(transform);
 
-      //Some custom map data in topoJSON Format 
-      //from https://statistik.zh.ch/internet/justiz_inneres/statistik/de/daten/Raeumliche_Daten/Basiskarten.html
-      //can be anything
-      //d3.json(mapData, function(error, mapData) {
-      	//Gemeindeumrisse
-      	var featureElement = svgMap.selectAll('path.gemeinde')
-      		.data(mapData)
-      		.enter()
-      		.append("path")
-      		.attr("d", path)
-      		.attr('class', 'gemeinde')
-      		.style('stroke-width', 0.5)
-      		.style('fill', function(d) {
-      			return colorScale(d.properties.population);
-      		})
-      		.on('mouseover', function(d) {
-      			//console.log(d.properties.name);
-      			var bBox = d3.select(this).node().getBBox();
-      			//console.log(bBox);
-      			svgMap.append('text')
-      				.attr('class', 'mouse')
-      				.attr('x', bBox.x+bBox.width/2)
-      				.attr('y', bBox.y+bBox.height/2)
-      				.text(d.properties.name+': '+chFormat.format(',')(d.properties.population));
-      		})
-      		.on('mouseout', function() {
-      			//undo what ever you wanted to do with your Map-Data on Mouse-Out
-      			d3.selectAll('.mouse').remove();
-      		})
-      		.on('click', function() {
-      			//or maybe some click-action?
-      		});
+
+    	var featureElement = svgMap.selectAll('path.gemeinde')
+    		.data(mapData)
+    		.enter()
+    		.append("path")
+    		.attr("d", path)
+    		.attr('class', 'gemeinde')
+    		.style('stroke-width', 0.5)
+    		.style('fill', function(d) {
+    			return colorScale(d.properties.population);
+    		})
+    		.on('mouseover', function(d) {
+    			//console.log(d.properties.name);
+    			var bBox = d3.select(this).node().getBBox();
+    			//console.log(bBox);
+    			svgMap.append('text')
+    				.attr('class', 'mouse')
+    				.attr('x', bBox.x+bBox.width/2)
+    				.attr('y', bBox.y+bBox.height/2)
+    				.text(d.properties.name+': '+chFormat.format(',')(d.properties.population));
+    		})
+    		.on('mouseout', function() {
+    			//undo what ever you wanted to do with your Map-Data on Mouse-Out
+    			d3.selectAll('.mouse').remove();
+    		})
+    		.on('click', function() {
+    			//or maybe some click-action?
+    		});
       		
 
 
