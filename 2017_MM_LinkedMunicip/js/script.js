@@ -57,13 +57,14 @@
 			?Municipality geo:hasGeometry ?Geometry .
 			?Geometry geo:asWKT ?WKT .
 			FILTER (?Date = "2017-01-01"^^xsd:date)
-			FILTER (?CantonName = "Bern")  
+			FILTER (?CantonName = "Zürich")  
 			}`;
 		var endPoint = "https://ld.geo.admin.ch/query";
 
 		//Main render function
 		d3.sparql(endPoint, query, function(error, data) {
 		  if (error) throw error;
+          console.log(data);
 		  //console.log(data); // [{'developerName': 'Mike Bostock'}]
 		  var newData = [];
 		  
@@ -148,9 +149,9 @@
 
 		//Add the OpenStreetMap Layer via leaflet    
 		function addLmaps() {
-		    latOrg = 46.9;
-		    lngOrg = 7.7;
-		    zoomOrg = 9;
+        latOrg = 47.43;
+        lngOrg = 8.64;
+        zoomOrg = 10;
 		    map = L.map('map').setView([latOrg, lngOrg], zoomOrg);
 
 		    //OpenStreetMap_BlackAndWhite

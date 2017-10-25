@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <script src="../lib/d3.min.js"></script>
+    <script src="../lib/d3-sparql.min.js"></script>
+    <script src="js/script.js"> </script>
+    <link rel="stylesheet" href="stil.css">
+  </head>
+    <body>
+      <div>
+      <form>
+        <textarea id="sparql" style="display:none">
+PREFIX schema: <http://schema.org/>
+PREFIX wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT *
+WHERE { GRAPH ?g {
+
+  ?s a schema:Photograph ;
+       schema:description ?label;
+         schema:thumbnailUrl ?thumb;
+         schema:image ?imageLink;
+         wgs:lat ?lat ;
+         wgs:long ?long .
+         
+      BIND(STRDT(CONCAT("POINT(", STR(?lat), " ", STR(?long), ")"), geo:wktLiteral) AS ?stationwkt).
+    BIND( CONCAT("<p>", ?label, "</p><p><a href='", STR(?imageLink), "'><img src='", STR(?thumb), "'></a></p>") AS ?stationwktLabel).
+
+}}
+        </textarea>
+      </form>
+    </div>
+  <div id="visDiv"></div>
+ </body>
+</html>
